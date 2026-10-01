@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "walter-mjlab"
+version = "0.1.0"
+description = "WaLTER MJLab training environments and joystick diagnostics"
+requires-python = ">=3.12,<3.15"
+dependencies = ["mjlab==1.6.0", "WaLTER_Modeling", "numpy>=1.26"]
+
+[project.optional-dependencies]
+joystick = ["pygame>=2.6"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.11", "pyright>=1.1"]
+
+[project.scripts]
+walter-joystick = "walter_mjlab.evaluation.joystick:main"
+walter-train = "walter_mjlab.training.train:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["walter_mjlab*"]
+
+[tool.uv.sources]
+WaLTER_Modeling = { path = "modeling", editable = true }
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["modeling", "artifacts"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.pyright]
+include = ["walter_mjlab", "simulations"]
+exclude = ["modeling"]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+venvPath = "."
+venv = ".venv"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: constructs and steps the MJLab simulation"]

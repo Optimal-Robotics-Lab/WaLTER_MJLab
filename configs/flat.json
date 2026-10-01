@@ -1,0 +1,10 @@
+{
+  "profile": "FS",
+  "terrain": "flat",
+  "seed": 42,
+  "episode_length_s": 20.0,
+  "curriculum": true,
+  "initial_difficulty": 0.0,
+  "noise": true,
+  "reward_weights": {}
+}
